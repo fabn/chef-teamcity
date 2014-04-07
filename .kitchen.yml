@@ -9,9 +9,11 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
+    run_list:
+      - recipe[apt::default]
 
 suites:
   - name: default
     run_list:
-      - recipe[teamcity::default]
+      - recipe[teamcity::server]
     attributes:
