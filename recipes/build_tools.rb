@@ -43,3 +43,15 @@ package 'virtualbox' do
 end
 
 # Install vagrant
+remote_file "/tmp/#{File.basename(node[:teamcity][:agent][:vagrant][:remote_file])}" do
+  source node[:teamcity][:agent][:vagrant][:remote_file]
+  checksum node[:teamcity][:agent][:vagrant][:checksum]
+  only_if { node[:teamcity][:agent][:build_tools].include?('vagrant') }
+  not_if 'which vagrant'
+end
+
+dpkg_package "/tmp/#{File.basename(node[:teamcity][:agent][:vagrant][:remote_file])}" do
+  action :install
+  only_if { node[:teamcity][:agent][:build_tools].include?('vagrant') }
+  not_if 'which vagrant'
+end

@@ -12,6 +12,10 @@ describe 'teamcity::build_tools' do
     ChefSpec::Matchers::ResourceMatcher.new('ark', action, resource_name)
   end
 
+  before do
+    stub_command('which vagrant').and_return(false)
+  end
+
   it 'should include common recipe' do
     expect(chef_run).to include_recipe 'teamcity::common'
   end
@@ -23,6 +27,12 @@ describe 'teamcity::build_tools' do
 
   it 'should install virtualbox package' do
     expect(chef_run).to install_package('virtualbox')
+  end
+
+  it 'should download and install vagrant package for the given architecture' do
+    deb_package = "/tmp/#{File.basename(node[:teamcity][:agent][:vagrant][:remote_file])}"
+    expect(chef_run).to create_remote_file(deb_package)
+    expect(chef_run).to install_dpkg_package(deb_package)
   end
 
 end
