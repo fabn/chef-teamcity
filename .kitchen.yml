@@ -22,6 +22,7 @@ suites:
       - recipe[teamcity::mysql]
       - recipe[teamcity::agent]
       - recipe[teamcity::nginx]
+      - recipe[teamcity::build_tools]
     attributes:
       mysql:
         server_root_password: rootpass
