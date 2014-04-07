@@ -20,8 +20,8 @@
 # include common recipe
 include_recipe 'teamcity::common'
 
-# Install ruby
-
+# Install ruby for teamcity agent user using standalone recipe
+include_recipe 'teamcity::ruby' if node[:teamcity][:agent][:build_tools].include?('ruby')
 
 # Install phantomjs
 ark 'phantomjs' do

@@ -1,7 +1,13 @@
 # Build tools attributes
 
 # List of installed tools used by agent to run builds
-default[:teamcity][:agent][:build_tools] = %w(rbenv phantomjs virtualbox vagrant)
+default[:teamcity][:agent][:build_tools] = %w(ruby phantomjs virtualbox vagrant)
+
+# Ensure default attributes are required
+include_attribute 'teamcity::default'
+
+# Ruby versions to install into CI server, currently with rbenv
+default[:teamcity][:agent][:rubies] = %w(1.9.3-p545 2.0.0-p451 2.1.1)
 
 # Maven it's not installed because it's bundled into teamcity
 
