@@ -20,6 +20,7 @@ suites:
     run_list:
       - recipe[teamcity::server]
       - recipe[teamcity::mysql]
+      - recipe[teamcity::nginx]
     attributes:
       mysql:
         server_root_password: rootpass
