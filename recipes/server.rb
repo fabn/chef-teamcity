@@ -37,10 +37,26 @@ end
 template "#{node[:teamcity][:server][:path]}/conf/server.xml" do
   source 'server.xml.erb'
   owner node[:teamcity][:system][:user]
-  owner node[:teamcity][:system][:group]
+  group node[:teamcity][:system][:group]
 end
 
-# create init script
+# Configure server startup variables
+template "#{node[:teamcity][:server][:path]}/bin/teamcity-init.sh" do
+  source 'teamcity-init.sh.erb'
+  owner node[:teamcity][:system][:user]
+  group node[:teamcity][:system][:group]
+  mode '0644'
+end
 
-# service start
+# create init script for standalone server
+template '/etc/init.d/teamcity-server' do
+  source 'teamcity-server.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
 
+# service enable and start
+service 'teamcity-server' do
+  action [:enable, :start]
+end

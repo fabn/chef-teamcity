@@ -1,0 +1,9 @@
+
+# Memory options
+export TEAMCITY_SERVER_MEM_OPTS="-Xmx<%= node[:teamcity][:server][:heap_space] -%> -XX:MaxPermSize=<%= node[:teamcity][:server][:perm_gen_space] -%>"
+
+# Data directory
+export TEAMCITY_DATA_PATH="<%= node[:teamcity][:server][:data_dir] -%>"
+
+# Enable pidfile for tomcat, used in startup script
+export CATALINA_PID="<%= node[:teamcity][:server][:path] %>/logs/catalina.pid"
