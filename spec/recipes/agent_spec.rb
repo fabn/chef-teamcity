@@ -8,6 +8,10 @@ describe 'teamcity::agent' do
 
   let(:node) { chef_run.node }
 
+  before do
+    stub_command('test -d /opt/teamcity/agent').and_return(false)
+  end
+
   def download_file(resource_name, action)
     ChefSpec::Matchers::ResourceMatcher.new('ark', action, resource_name)
   end
