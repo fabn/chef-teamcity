@@ -25,3 +25,13 @@ default[:teamcity][:server][:mysql][:user] = 'teamcity'
 default[:teamcity][:server][:mysql][:password] = 'teamcity'
 default[:teamcity][:server][:mysql][:database] = 'teamcity'
 default[:teamcity][:server][:mysql][:host] = 'localhost'
+
+# Attributes needed for teamcity agent installation
+default[:teamcity][:agent][:listen_port] = 9090
+default[:teamcity][:agent][:user] = node[:teamcity][:system][:user]
+default[:teamcity][:agent][:group] = node[:teamcity][:system][:group]
+default[:teamcity][:agent][:home] = node[:teamcity][:system][:home]
+default[:teamcity][:agent][:path] = "#{node[:teamcity][:agent][:home]}/agent"
+default[:teamcity][:agent][:install_method] = 'sources' # can be either sources or server
+default[:teamcity][:agent][:server_url] = 'http://localhost:8111'
+default[:teamcity][:agent][:agent_archive_url] = "#{node[:teamcity][:agent][:server_url]}/update/buildAgent.zip"

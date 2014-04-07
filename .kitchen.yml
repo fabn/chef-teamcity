@@ -20,6 +20,7 @@ suites:
     run_list:
       - recipe[teamcity::server]
       - recipe[teamcity::mysql]
+      - recipe[teamcity::agent]
       - recipe[teamcity::nginx]
     attributes:
       mysql:
