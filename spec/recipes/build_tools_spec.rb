@@ -21,4 +21,8 @@ describe 'teamcity::build_tools' do
     expect(chef_run).to create_link('/usr/bin/phantomjs').with(to: '/opt/phantomjs/bin/phantomjs')
   end
 
+  it 'should install virtualbox package' do
+    expect(chef_run).to install_package('virtualbox')
+  end
+
 end

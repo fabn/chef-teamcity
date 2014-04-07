@@ -37,4 +37,9 @@ link '/usr/bin/phantomjs' do
   only_if { node[:teamcity][:agent][:build_tools].include?('phantomjs') }
 end
 
-# Install virtualbox and vagrant
+# Install virtualbox
+package 'virtualbox' do
+  only_if { node[:teamcity][:agent][:build_tools].include?('virtualbox') }
+end
+
+# Install vagrant
