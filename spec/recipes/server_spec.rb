@@ -23,6 +23,12 @@ describe 'teamcity::server' do
                             with_content('TEAMCITY_SERVER_MEM_OPTS')
   end
 
+  it 'should create data directory' do
+    expect(chef_run).to create_directory(node[:teamcity][:server][:data_dir]).
+                            with_owner(node[:teamcity][:system][:user]).
+                            with_group(node[:teamcity][:system][:group])
+  end
+
   it 'should create an init script' do
     startup_line = "DAEMON=#{node[:teamcity][:server][:path]}/bin/teamcity-server.sh"
     expect(chef_run).to render_file('/etc/init.d/teamcity-server').with_content(startup_line)

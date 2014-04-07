@@ -33,6 +33,12 @@ ark 'teamcity-server' do
   action :put
 end
 
+# Create data directory in the given path
+directory node[:teamcity][:server][:data_dir] do
+  owner node[:teamcity][:system][:user]
+  group node[:teamcity][:system][:group]
+end
+
 # configure using templates, current configuration is the default one with port customization
 template "#{node[:teamcity][:server][:path]}/conf/server.xml" do
   source 'server.xml.erb'
