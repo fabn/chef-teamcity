@@ -19,7 +19,7 @@
 
 
 if node[:java][:install_flavor] == 'openjdk'
-  Chef::Log.warn 'You are using openjdk java. While it works, remember that is not officially supported by Teamcity'
+  Chef::Log.info 'You are using openjdk java. While it works, remember that is not officially supported by Teamcity'
 end
 
 include_recipe 'java'

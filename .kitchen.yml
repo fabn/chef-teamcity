@@ -13,9 +13,16 @@ platforms:
   - name: ubuntu-12.04
     run_list:
       - recipe[apt::default]
+      - recipe[mysql::server]
 
 suites:
   - name: default
     run_list:
       - recipe[teamcity::server]
+      - recipe[teamcity::mysql]
     attributes:
+      mysql:
+        server_root_password: rootpass
+        server_debian_password: debpass
+        server_repl_password: replpass
+        bind_address: 0.0.0.0
