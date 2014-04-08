@@ -16,3 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+# include all other recipes for a full server + agent + mysql backend + nginx proxy installation
+include_recipe'teamcity::server'
+include_recipe'teamcity::mysql'
+include_recipe'teamcity::agent'
+include_recipe'teamcity::nginx'
+include_recipe'teamcity::build_tools'

@@ -18,11 +18,7 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[teamcity::server]
-      - recipe[teamcity::mysql]
-      - recipe[teamcity::agent]
-      - recipe[teamcity::nginx]
-      - recipe[teamcity::build_tools]
+      - recipe[teamcity]
     attributes:
       teamcity:
         agent:
