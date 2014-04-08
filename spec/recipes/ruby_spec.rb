@@ -29,6 +29,12 @@ describe 'teamcity::ruby' do
     expect(node[:teamcity][:agent][:environment_variables]).to include({RBENV_ROOT: '/opt/rbenv'})
   end
 
+  it 'should add a teamcity-agent default file with rbenv settings' do
+    expect(chef_run).to render_file('/etc/default/teamcity-agent').with_content('. /etc/profile.d/rbenv.sh')
+    template = chef_run.template('/etc/default/teamcity-agent')
+    expect(template).to notify('service[teamcity-agent]').to(:restart)
+  end
+
   context 'with global interpreter specified' do
 
     let(:chef_run) do

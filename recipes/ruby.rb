@@ -52,3 +52,9 @@ node[:teamcity][:agent][:rubies].each do |ruby|
   end
 
 end
+
+template '/etc/default/teamcity-agent' do
+  source 'teamcity-agent-default.erb'
+  mode '0644'
+  notifies :restart, 'service[teamcity-agent]'
+end
