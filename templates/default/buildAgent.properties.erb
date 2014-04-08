@@ -52,8 +52,12 @@ authorizationToken=<%= node[:teamcity][:agent][:token] %>
 
 # Build Script Properties
 
-#system.exampleProperty=example Value
+<%- node[:teamcity][:agent][:system_properties].each do |k,v| -%>
+system.<%= k %>=<%= v %>
+<%- end -%>
 
 # Environment Variables
 
-#env.exampleEnvVar=example Env Value
+<%- node[:teamcity][:agent][:environment_variables].each do |k,v| -%>
+env.<%= k %>=<%= v %>
+<%- end -%>

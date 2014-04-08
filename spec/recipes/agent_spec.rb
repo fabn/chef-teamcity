@@ -56,6 +56,23 @@ describe 'teamcity::agent' do
                             with_content(%Q{serverUrl=#{node[:teamcity][:agent][:server_url]}})
   end
 
+  context 'with agent environment variables and system properties' do
+
+    let(:chef_run) do
+      ChefSpec::Runner.new do |node|
+        node.set[:teamcity][:agent][:system_properties] = {FOO: 'bar'}
+        node.set[:teamcity][:agent][:environment_variables] = {RBENV_ROOT: '/opt/rbenv'}
+      end.converge(described_recipe)
+    end
+
+    it 'should configure put them in properties file' do
+      expect(chef_run).to render_file("#{node[:teamcity][:agent][:path]}/conf/buildAgent.properties").
+                              with_content(%q{env.FOO=bar}).
+                              with_content(%q{env.RBENV_ROOT=/opt/rbenv})
+    end
+
+  end
+
   it 'should create an init script' do
     startup_line = "DAEMON=#{node[:teamcity][:agent][:path]}/bin/agent.sh"
     expect(chef_run).to render_file('/etc/init.d/teamcity-agent').with_content(startup_line)

@@ -24,6 +24,11 @@ describe 'teamcity::ruby' do
     end
   end
 
+  it 'should add environments variables for the agent' do
+    expect { chef_run }.to_not raise_error
+    expect(node[:teamcity][:agent][:environment_variables]).to include({RBENV_ROOT: '/opt/rbenv'})
+  end
+
   context 'with global interpreter specified' do
 
     let(:chef_run) do

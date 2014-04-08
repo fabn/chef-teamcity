@@ -15,6 +15,7 @@ describe 'teamcity::build_tools' do
   before do
     stub_command('which vagrant').and_return(false)
     stub_command('git --version >/dev/null').and_return(false)
+    stub_command('test -d /opt/teamcity/agent').and_return(false)
   end
 
   it 'should include common recipe' do

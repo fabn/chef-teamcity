@@ -26,6 +26,11 @@ node.set[:rbenv][:manage_home] = false
 # Add teamcity user to the rbenv group
 node.default[:rbenv][:group_users].push(node[:teamcity][:system][:user])
 
+# Add rbenv variables to agent configuration
+node.set[:teamcity][:agent][:environment_variables][:RBENV_ROOT] = node[:rbenv][:root_path]
+# Apply agent recipe
+include_recipe 'teamcity::agent'
+
 # Include rbenv recipes
 include_recipe 'rbenv::default'
 include_recipe 'rbenv::ruby_build'

@@ -35,3 +35,7 @@ default[:teamcity][:agent][:path] = "#{node[:teamcity][:agent][:home]}/agent"
 default[:teamcity][:agent][:install_method] = 'sources' # can be either sources or server
 default[:teamcity][:agent][:server_url] = 'http://localhost:8111'
 default[:teamcity][:agent][:agent_archive_url] = "#{node[:teamcity][:agent][:server_url]}/update/buildAgent.zip"
+
+# Agent configuration parameters
+default[:teamcity][:agent][:system_properties] = {}
+default[:teamcity][:agent][:environment_variables] = {}
