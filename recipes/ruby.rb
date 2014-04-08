@@ -20,34 +20,30 @@
 # include common recipe to create user
 include_recipe 'teamcity::common'
 
-# Needed to build rubies
-include_recipe 'ruby_build'
-# Needed to use LRWPs, otherwise ruby installation is skipped
-include_recipe 'rbenv::user_install'
+# Don't create home directory for rbenv user
+node.set[:rbenv][:manage_home] = false
+
+# Add teamcity user to the rbenv group
+node.default[:rbenv][:group_users].push(node[:teamcity][:system][:user])
+
+# Include rbenv recipes
+include_recipe 'rbenv::default'
+include_recipe 'rbenv::ruby_build'
+
+# Used to configure global ruby interpreter
+global_ruby = node[:teamcity][:agent][:global_ruby] || node[:teamcity][:agent][:rubies].last
 
 # For each declared ruby, install it for teamcity user and install bundler
 node[:teamcity][:agent][:rubies].each do |ruby|
 
   rbenv_ruby ruby do
-    user node[:teamcity][:system][:user]
+    global ruby == global_ruby
     only_if { node[:teamcity][:agent][:build_tools].include?('ruby') }
   end
 
   rbenv_gem 'bundler' do
-    rbenv_version ruby
-    user node[:teamcity][:system][:user]
+    ruby_version ruby
     only_if { node[:teamcity][:agent][:build_tools].include?('ruby') }
   end
 
-end
-
-rbenv_rehash 'recreate shims for teamcity rbenv' do
-  user node[:teamcity][:system][:user]
-  only_if { node[:teamcity][:agent][:build_tools].include?('ruby') }
-end
-
-# Take the last (newer in default attributes) ruby as global ruby
-rbenv_global node[:teamcity][:agent][:rubies].last do
-  user node[:teamcity][:system][:user]
-  only_if { node[:teamcity][:agent][:build_tools].include?('ruby') }
 end

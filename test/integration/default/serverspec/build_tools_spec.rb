@@ -6,6 +6,10 @@ describe 'Installed build tools' do
     it { should return_stdout /ruby 2.1.1/ }
   end
 
+  describe command(%q{su -l teamcity -c 'bundle -v'}) do
+    it { should return_stdout /Bundler version \d+\.\d+\.\d+/ }
+  end
+
   describe command('phantomjs --version') do
     it { should return_stdout '1.9.7' }
   end

@@ -8,6 +8,8 @@ include_attribute 'teamcity::default'
 
 # Ruby versions to install into CI server, currently with rbenv
 default[:teamcity][:agent][:rubies] = %w(1.9.3-p545 2.0.0-p451 2.1.1)
+# Use this to specify the interpreter to set as default ruby
+default[:teamcity][:agent][:global_ruby] = nil
 
 # Maven it's not installed because it's bundled into teamcity
 

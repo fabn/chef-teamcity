@@ -3,7 +3,7 @@ site :opscode
 metadata
 
 # Rbenv coobook is not released on community site
-cookbook 'rbenv', github: 'fnichol/chef-rbenv'
+cookbook 'rbenv', github: 'RiotGames/rbenv-cookbook'
 cookbook 'mysql', '~> 3.0'
 
 group :integration do
