@@ -41,6 +41,13 @@ admin_credentials ||= {
     password: node[:mysql][:server_root_password]
 }
 
+# Create teamcity empty database
+mysql_database node[:teamcity][:server][:mysql][:user] do
+  connection admin_credentials
+  action :create
+end
+
+# Create teamcity user
 mysql_database_user node[:teamcity][:server][:mysql][:user] do
   connection admin_credentials
   password node[:teamcity][:server][:mysql][:password]
