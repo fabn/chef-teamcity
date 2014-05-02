@@ -22,8 +22,8 @@ describe 'teamcity::mysql' do
     expect(chef_run).to include_recipe 'teamcity::server'
   end
 
-  it 'should include server recipe' do
-    expect(chef_run).to include_recipe 'mysql::ruby'
+  it 'should include mysql chef gem recipe' do
+    expect(chef_run).to include_recipe 'mysql-chef_gem'
   end
 
   it 'should create teamcity database user' do
