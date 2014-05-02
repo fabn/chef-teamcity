@@ -30,7 +30,7 @@ ark 'mysql-connector' do
 end
 
 # Required to create users
-include_recipe 'mysql::ruby'
+include_recipe 'mysql-chef_gem'
 
 # MySQL administrative credentials used to create an user
 admin_credentials = node[:teamcity][:server][:mysql][:credentials]
