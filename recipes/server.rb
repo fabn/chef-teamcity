@@ -44,6 +44,7 @@ template "#{node[:teamcity][:server][:path]}/conf/server.xml" do
   source 'server.xml.erb'
   owner node[:teamcity][:system][:user]
   group node[:teamcity][:system][:group]
+  notifies :restart, 'service[teamcity-server]'
 end
 
 # Configure server startup variables
@@ -52,6 +53,7 @@ template "#{node[:teamcity][:server][:path]}/bin/teamcity-init.sh" do
   owner node[:teamcity][:system][:user]
   group node[:teamcity][:system][:group]
   mode '0644'
+  notifies :restart, 'service[teamcity-server]'
 end
 
 # create init script for standalone server
@@ -64,5 +66,6 @@ end
 
 # service enable and start
 service 'teamcity-server' do
+  supports restart: true, status: true
   action [:enable, :start]
 end

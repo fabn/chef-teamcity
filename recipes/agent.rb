@@ -66,6 +66,7 @@ template "#{node[:teamcity][:agent][:path]}/conf/buildAgent.properties" do
   user node[:teamcity][:system][:user]
   group node[:teamcity][:system][:group]
   mode '0640'
+  notifies :restart, 'service[teamcity-agent]'
 end
 
 # create init script for teamcity agent
@@ -74,9 +75,11 @@ template '/etc/init.d/teamcity-agent' do
   owner 'root'
   group 'root'
   mode '0755'
+  notifies :restart, 'service[teamcity-agent]'
 end
 
 # service start
 service 'teamcity-agent' do
+  supports restart: true, status: true
   action [:enable, :start]
 end
