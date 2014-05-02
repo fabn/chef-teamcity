@@ -20,17 +20,17 @@
 # Setup for teamcity
 include_recipe 'teamcity::common'
 
-# download teamcity and extract it into final location
-ark 'teamcity-server' do
-  # This is used as final folder name by ark
-  name ::File.basename(node[:teamcity][:server][:path])
+# download teamcity and extract it into final location,
+# using versions folder and symlinks to allow easy updates
+ark 'server' do
   url node[:teamcity][:server][:download_url]
   checksum node[:teamcity][:server][:checksum]
   version node[:teamcity][:server][:version]
-  path node[:teamcity][:system][:home]
   owner node[:teamcity][:system][:user]
   group node[:teamcity][:system][:group]
-  action :put
+  prefix_root node[:teamcity][:system][:home]
+  prefix_home node[:teamcity][:system][:home]
+  action :install
 end
 
 # Create data directory in the given path
