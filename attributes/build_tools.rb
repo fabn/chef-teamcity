@@ -3,6 +3,9 @@
 # List of installed tools used by agent to run builds
 default[:teamcity][:agent][:build_tools] = %w(ruby phantomjs virtualbox vagrant)
 
+# Used to install additional packages used in various builds
+default[:teamcity][:agent][:build_packages] = []
+
 # Ensure default attributes are required
 include_attribute 'teamcity::default'
 

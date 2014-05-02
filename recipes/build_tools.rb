@@ -55,3 +55,6 @@ dpkg_package "/tmp/#{File.basename(node[:teamcity][:agent][:vagrant][:remote_fil
   only_if { node[:teamcity][:agent][:build_tools].include?('vagrant') }
   not_if 'which vagrant'
 end
+
+# Other build packages specified in attributes
+node[:teamcity][:agent][:build_packages].each { |pkg| package(pkg) }

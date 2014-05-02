@@ -3,7 +3,9 @@ require 'spec_helper'
 describe 'teamcity::build_tools' do
 
   let(:chef_run) do
-    ChefSpec::Runner.new.converge(described_recipe)
+    ChefSpec::Runner.new do |node|
+      node.set[:teamcity][:agent][:build_packages] = %w(libcurl4-openssl-dev libpq-dev libsqlite3-dev)
+    end.converge(described_recipe)
   end
 
   let(:node) { chef_run.node }
@@ -39,6 +41,12 @@ describe 'teamcity::build_tools' do
     deb_package = "/tmp/#{File.basename(node[:teamcity][:agent][:vagrant][:remote_file])}"
     expect(chef_run).to create_remote_file(deb_package)
     expect(chef_run).to install_dpkg_package(deb_package)
+  end
+
+  it 'should install additional packages provided in attributes' do
+    node[:teamcity][:agent][:build_packages].each do |pkg|
+      expect(chef_run).to install_package(pkg)
+    end
   end
 
 end
