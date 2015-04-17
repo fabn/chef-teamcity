@@ -32,7 +32,7 @@ describe 'teamcity::mysql' do
 
   it 'should download mysql java connector' do
     expect(chef_run).to download_file('mysql-connector', :cherry_pick).
-                            with_url('http://cdn.mysql.com/Downloads/Connector-J/mysql-connector-java-5.1.30.tar.gz')
+                            with_url('http://cdn.mysql.com/Downloads/Connector-J/mysql-connector-java-5.1.35.tar.gz')
   end
 
   it 'should create database configuration file' do

@@ -21,10 +21,10 @@
 include_recipe 'teamcity::server'
 
 ark 'mysql-connector' do
-  url 'http://cdn.mysql.com/Downloads/Connector-J/mysql-connector-java-5.1.30.tar.gz'
+  url 'http://cdn.mysql.com/Downloads/Connector-J/mysql-connector-java-5.1.35.tar.gz'
   path "#{node[:teamcity][:server][:data_dir]}/lib/jdbc"
   action :cherry_pick
-  creates 'mysql-connector-java-5.1.30/mysql-connector-java-5.1.30-bin.jar'
+  creates 'mysql-connector-java-5.1.35/mysql-connector-java-5.1.35-bin.jar'
   owner node[:teamcity][:system][:user]
   group node[:teamcity][:system][:group]
 end

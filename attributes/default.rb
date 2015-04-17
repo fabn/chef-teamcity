@@ -5,10 +5,10 @@ default[:teamcity][:system][:home] = '/opt/teamcity'
 default[:teamcity][:system][:generate_keys] = false
 
 # Teamcity archive and checksum
-default[:teamcity][:server][:version] = '8.1.2'
+default[:teamcity][:server][:version] = '9.0.3'
 default[:teamcity][:server][:base_url] = 'http://download-cf.jetbrains.com/teamcity'
 default[:teamcity][:server][:download_url] = "#{node[:teamcity][:server][:base_url]}/TeamCity-#{node[:teamcity][:server][:version]}.tar.gz"
-default[:teamcity][:server][:checksum] = '1376ad7d59b5aa20886e04e6e1d701170c1a11bc1f0adc408fcd8ef38c8dd80e' # For v 8.1.2
+default[:teamcity][:server][:checksum] = 'cacef22cf53506346078c05ff9c12dd5bd773c90596cf72fbf4ff49ff8493d1a' # For v 9.0.3
 # Server installation attributes
 default[:teamcity][:server][:port] = 8111
 default[:teamcity][:server][:listen_address] = '127.0.0.1'
